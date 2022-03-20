@@ -1,11 +1,21 @@
-import React from 'react';
-import './App.css';
+import React, { Suspense, lazy } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import './App.css'
+
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+const LoginPage = lazy(() => import('./pages/LoginPage'))
 
 function App() {
   return (
-    <div className="App">
-    </div>
-  );
+    <Suspense fallback={<div>Loading...</div>}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Router>
+    </Suspense>
+  )
 }
 
-export default App;
+export default App
