@@ -1,19 +1,18 @@
 import React from 'react'
-import { Button, Form, Input, Row, InnerWrapper } from '@/components'
+import { Button, Form, InputRegular, JustifyBetweenRow, Column, InputCheckbox } from '@/components'
 
 interface Props {}
 const SigninComponent: React.FC<Props> = () => {
   return (
     <Form>
-      <InnerWrapper>
-        <Row>
-          <Input placeholder="Username" type="text" />
-          <Input placeholder="Password" type="password" />
-        </Row>
-        <Row>
-          <Button>Sign In</Button>
-        </Row>
-      </InnerWrapper>
+      <Column>
+        <InputRegular placeholder="Username" type="text" />
+        <InputRegular placeholder="Password" type="password" />
+      </Column>
+      <JustifyBetweenRow>
+        <InputCheckbox />
+        <Button>Sign In</Button>
+      </JustifyBetweenRow>
     </Form>
   )
 }
