@@ -26,3 +26,5 @@
 - Interfaces
 - Types defines like variables
 - Types cant merge but interfaces can merge
+
+### Width and padding overflows the content so use box-sizing border-box!!;
