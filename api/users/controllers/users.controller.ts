@@ -31,7 +31,7 @@ class UsersController {
 
   async patch(req: express.Request, res: express.Response) {
     if (req.body.password) {
-      req.body.password = argon2.hash(req.body.password)
+      req.body.password = await argon2.hash(req.body.password)
     }
     log(await userService.patchById(req.body.id, req.body))
     res.status(204).send()

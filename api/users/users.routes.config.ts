@@ -3,6 +3,9 @@ import express from 'express';
 import UsersController from './controllers/users.controller';
 import UsersMiddleware from './middleware/users.middleware';
 
+import BodyValidationMiddleware from '../common/middleware/body.validation.middleware';
+import { body } from 'express-validator';
+
 export class UsersRoutes extends CommonRoutesConfig {
   constructor(app: express.Application) {
     super(app, 'UsersRoutes');
