@@ -64,6 +64,7 @@
 - source-map-support
 - tslint
 - typescript
+- helmet
 
 #### Testing
 
