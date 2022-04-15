@@ -79,6 +79,21 @@ export class UsersRoutes extends CommonRoutesConfig {
       UsersController.patch,
     ]);
 
+
+    this.app.put(`/users/:userId/permissionFlags/:permissionFlags`, [
+      jwtMiddleware.validJWTNeeded,
+      permissionMiddleware.onlySameUserOrAdminCanDoThisAction,
+
+      // Note: The above two pieces of middleware are needed despite
+      // the reference to them in the .all() call, because that only covers
+      // /users/:userId, not anything beneath it in the hierarchy
+
+      permissionMiddleware.permissionFlagRequired(
+        PermissionFlag.FREE_PERMISSION
+      ),
+      UsersController.updatePermissionFlags,
+    ]);
+
     return this.app;
   }
 

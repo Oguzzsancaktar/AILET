@@ -1,3 +1,4 @@
+import { PatchUserDto } from '../dto/patch.user.dto'
 import express from "express";
 import userService from "../services/users.service";
 import argon2 from 'argon2'
@@ -46,6 +47,14 @@ class UsersController {
   async removeUser(req: express.Request, res: express.Response) {
     log(await userService.deleteById(req.body.id))
     res.status(204).send()
+  }
+
+  async updatePermissionFlags(req: express.Request, res: express.Response) {
+    const patchUserDto: PatchUserDto = {
+      permissionFlags: parseInt(req.params.permissionFlags),
+    };
+    log(await userService.patchById(req.body.id, patchUserDto));
+    res.status(204).send();
   }
 }
 
