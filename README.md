@@ -17,21 +17,37 @@
 (Singelton Patern)
 (Flow Control Pattern)
 
-- <b style="color:purple">Route configuration</b> to define the requests our API can handle.
-- <b style="color:purple">Services</b> for tasks such as connecting to our database models, doing queries, or connecting to external services that are required by the specific request
-- <b style="color:purple">Middleware</b> for running specific request validations before the final controller of a route handles its specifics
-  - <b style="color:purple">Models</b> for defining data models matching a given database schema, to facilitate data storage and retrieval
-- <b style="color:purple">Controllers</b> for separating the route configuration from the code that finally (after any middleware) processes a route request, calls the above service functions if necessary, and gives a response to the client
-
-- <b style="color:purple">Services</b> that make our code cleaner by encapsulating business logic operations into functions that middleware and controllers can call.
-- <b style="color:purple">Middleware</b> that will validate prerequisite conditions before Express.js calls the appropriate controller function.
-- <b style="color:purple">Controllers</b> that use services to process the request before finally sending a response to the requester.
-- <b style="color:purple">Models</b> that describe our data and aid in compile-time checks.
-
-- Data access objects (DAOs) is responsible for connecting to a defined database and performing CRUD operations
-- Data transfer objects (DTOs)is an object that holds the raw data that the DAO will send to—and receive from—the database.
-
-- Middleware => Contrtroller => Service => DAO
+```html
+- <b style="color:purple">Route configuration</b> to define the requests our API
+can handle. - <b style="color:purple">Services</b> for tasks such as connecting
+to our database models, doing queries, or connecting to external services that
+are required by the specific request -
+<b style="color:purple">Middleware</b> for running specific request validations
+before the final controller of a route handles its specifics -
+<b style="color:purple">Models</b> for defining data models matching a given
+database schema, to facilitate data storage and retrieval -
+<b style="color:purple">Controllers</b> for separating the route configuration
+from the code that finally (after any middleware) processes a route request,
+calls the above service functions if necessary, and gives a response to the
+client - <b style="color:purple">Services</b> that make our code cleaner by
+encapsulating business logic operations into functions that middleware and
+controllers can call. - <b style="color:purple">Middleware</b> that will
+validate prerequisite conditions before Express.js calls the appropriate
+controller function. - <b style="color:purple">Controllers</b> that use services
+to process the request before finally sending a response to the requester. -
+<b style="color:purple">Models</b> that describe our data and aid in
+compile-time checks. - Data access objects (DAOs) is responsible for connecting
+to a defined database and performing CRUD operations - Data transfer objects
+(DTOs)is an object that holds the raw data that the DAO will send to—and receive
+from—the database. - Middleware => Contrtroller => Service => DAO -
+<b style="color:purple">Mongoose</b> to allow us to work with MongoDB and
+replace our in-memory DAO with a real database. -
+<b style="color:purple">Authentication</b> and permissions capabilities so API
+consumers can use a JSON Web Token (JWT) to access our endpoints securely. -
+<b style="color:purple">Automated testing</b> using Mocha (a testing framework),
+Chai (an assertion library), and SuperTest (an HTTP abstraction module) to help
+check for regressions as the code base grows and changes.
+```
 
 #### Application
 
