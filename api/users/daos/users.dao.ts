@@ -21,6 +21,7 @@ class UsersDao {
   Schema = mongooseService.getMongoose().Schema;
   userSchema = new this.Schema({
     _id: String,
+    username: String,
     email: String,
     password: { type: String, select: false },
     firstName: String,
@@ -66,7 +67,7 @@ class UsersDao {
   }
 
   async getUserByEmailWithPassword(email: string) {
-    return this.User.findOne({ email }).select("_id permissionFlags +password").exec()
+    return this.User.findOne({ email }).select("_id permissionFlags username +password").exec()
   }
 
 }
