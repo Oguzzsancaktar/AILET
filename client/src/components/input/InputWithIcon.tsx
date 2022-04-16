@@ -1,17 +1,17 @@
-import colors from '@/constants/colors'
 import React from 'react'
-import styled from 'styled-components'
 import { Row, InputRegular } from '@/components'
 
 interface Props {
   type: string
   placeholder: string
+  name: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputWithIcon: React.FC<Props> = (props: Props) => {
+const InputWithIcon: React.FC<Props> = ({ ...rest }) => {
   return (
     <Row>
-      <InputRegular type="text" placeholder="Enter your name" />
+      <InputRegular {...rest} />
     </Row>
   )
 }

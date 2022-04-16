@@ -5,6 +5,8 @@ import styled from 'styled-components'
 interface Props {
   type: string
   placeholder: string
+  name: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input = styled.input`
@@ -23,8 +25,8 @@ const Input = styled.input`
   }
 `
 
-const InputRegular: React.FC<Props> = (props: Props) => {
-  return <Input type="text" placeholder="Enter your name" />
+const InputRegular: React.FC<Props> = ({ placeholder, name, type, onChange }) => {
+  return <Input onChange={onChange} name={name} type={type} placeholder={placeholder} />
 }
 
 export default InputRegular

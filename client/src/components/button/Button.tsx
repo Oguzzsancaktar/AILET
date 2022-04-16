@@ -21,7 +21,7 @@ const ButtonSC = styled.button`
 `
 
 const Button: React.FC<Props> = ({ children, ...rest }) => {
-  return <ButtonSC>{children}</ButtonSC>
+  return <ButtonSC type="submit">{children}</ButtonSC>
 }
 
 export default Button
