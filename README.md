@@ -9,6 +9,8 @@
 - Antd (deleted)
 - Craco (Webpack configuration)
 - Styled Components
+- Redux
+- Redux Toolkit
 
 ## Backend
 
