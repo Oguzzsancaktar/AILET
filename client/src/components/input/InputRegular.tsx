@@ -6,13 +6,17 @@ interface Props {
   type: string
   placeholder: string
   name: string
+  validationError?: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
+interface IStyledProps {
+  validationError: boolean
+}
 
-const Input = styled.input`
+const Input = styled.input<IStyledProps>`
   width: 100%;
   height: 40px;
-  border: 1px solid ${colors.green.thirth};
+  border: 1px solid ${props => (props.validationError ? colors.red.primary : colors.green.thirth)};
   background-color: transparent;
   transition: border 0.3s ease-in-out;
   outline: none;
@@ -25,8 +29,10 @@ const Input = styled.input`
   }
 `
 
-const InputRegular: React.FC<Props> = ({ placeholder, name, type, onChange }) => {
-  return <Input onChange={onChange} name={name} type={type} placeholder={placeholder} />
+const InputRegular: React.FC<Props> = ({ placeholder, name, type, validationError = false, onChange }) => {
+  return (
+    <Input validationError={validationError} onChange={onChange} name={name} type={type} placeholder={placeholder} />
+  )
 }
 
 export default InputRegular
