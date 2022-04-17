@@ -22,10 +22,12 @@ export class UsersRoutes extends CommonRoutesConfig {
         UsersController.listUsers)
       .post(
         // UsersMiddleware.validateRequiredUserBodyFields,
+        body('username').isLength({ min: 6 })
+          .withMessage('Must include username (6+ characters)'),
         body('email').isEmail(),
         body('password')
-          .isLength({ min: 5 })
-          .withMessage('Must include password (5+ characters)'),
+          .isLength({ min: 6 })
+          .withMessage('Must include password (6+ characters)'),
         BodyValidationMiddleware.verifyBodyFieldsErrors,
         UsersMiddleware.validateSameEmailDoesntExist,
         UsersController.createUser
@@ -55,8 +57,8 @@ export class UsersRoutes extends CommonRoutesConfig {
       // UsersMiddleware.validateRequiredUserBodyFields,
       body('email').isEmail(),
       body('password')
-        .isLength({ min: 5 })
-        .withMessage('Must include password (5+ characters)'),
+        .isLength({ min: 6 })
+        .withMessage('Must include password (6+ characters)'),
       body('firstName').isString(),
       body('lastName').isString(),
       body('permissionFlags').isInt(),
@@ -68,8 +70,8 @@ export class UsersRoutes extends CommonRoutesConfig {
     this.app.patch(`/users/:userId`, [
       body('email').isEmail().optional(),
       body('password')
-        .isLength({ min: 5 })
-        .withMessage('Password must be 5+ characters')
+        .isLength({ min: 6 })
+        .withMessage('Password must be 6+ characters')
         .optional(),
       body('firstName').isString().optional(),
       body('lastName').isString().optional(),
