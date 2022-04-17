@@ -1,8 +1,13 @@
 import { IUserCreateDTO } from '@/models'
-import axios from 'axios'
+import axios from '@/apis/axios.instance'
 
 const createUser = async (createUserDTO: IUserCreateDTO) => {
-  return await axios.post("/users", createUserDTO)
+  await axios.post("/users", createUserDTO)
+    .then(response => {
+      return response
+    }).catch(error => {
+      return error.response
+    });
 }
 
 export { createUser }
