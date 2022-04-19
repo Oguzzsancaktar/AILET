@@ -7,6 +7,7 @@ interface Props {
   placeholder: string
   name: string
   validationError?: boolean
+  value?: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 interface IStyledProps {
@@ -29,9 +30,16 @@ const Input = styled.input<IStyledProps>`
   }
 `
 
-const InputRegular: React.FC<Props> = ({ placeholder, name, type, validationError = false, onChange }) => {
+const InputRegular: React.FC<Props> = ({ placeholder, value, name, type, validationError = false, onChange }) => {
   return (
-    <Input validationError={validationError} onChange={onChange} name={name} type={type} placeholder={placeholder} />
+    <Input
+      validationError={validationError}
+      onChange={onChange}
+      value={value}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+    />
   )
 }
 

@@ -5,7 +5,6 @@ import useAccessStore from '@/hooks/useAccessStore'
 import { IUserCreateDTO } from '@/models'
 import { createUser } from '@/services/userService'
 import { FormErrorMessage } from '../form'
-import { toastWarning } from '@/utils/toastUtil'
 
 type IProps = {}
 
@@ -28,10 +27,10 @@ const SignupComponent: React.FC<IProps> = () => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const [signupFormValues, setSignupFormValues] = useState<ISignupFormValues>({
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirm: ''
+    username: 'sancaktar',
+    email: 'info@oguzsancaktar.com',
+    password: '12341234',
+    passwordConfirm: '12341234'
   })
 
   const handlePasswordConfirm = (values: ISignupFormValues) => {
@@ -45,7 +44,6 @@ const SignupComponent: React.FC<IProps> = () => {
       setErrorMessage('Username must be at least 6 characters long')
       return setUsernameError(true)
     }
-
     if (
       !values.email
         .toLowerCase()
@@ -69,21 +67,17 @@ const SignupComponent: React.FC<IProps> = () => {
     }
   }
 
-  const handleSignUp = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     handlePasswordConfirm(signupFormValues)
-
-    if (signupFormValues && isFormOk) {
-      createUser(signupFormValues)
-        .then(response => {
-          console.log('response', response)
-        })
-        .catch(error => {
-          console.log('error', error)
-        })
-    } else {
-      console.log('enter valid signupFormValues', signupFormValues)
+    try {
+      if (isFormOk) {
+        await createUser(signupFormValues)
+      } else {
+        console.log('enter valid signupFormValues', signupFormValues)
+      }
+    } catch (error: any) {
+      setErrorMessage(error.data.error)
     }
   }
 
@@ -100,6 +94,7 @@ const SignupComponent: React.FC<IProps> = () => {
           name="username"
           placeholder="Username"
           type="text"
+          value={signupFormValues.username}
         />
         <InputRegular
           validationError={emailError}
@@ -107,6 +102,7 @@ const SignupComponent: React.FC<IProps> = () => {
           name="email"
           placeholder="E-mail"
           type="email"
+          value={signupFormValues.email}
         />
 
         <InputRegular
@@ -115,6 +111,7 @@ const SignupComponent: React.FC<IProps> = () => {
           name="password"
           placeholder="Password"
           type="password"
+          value={signupFormValues.password}
         />
         <InputRegular
           validationError={confirmPasswordError}
@@ -122,6 +119,7 @@ const SignupComponent: React.FC<IProps> = () => {
           name="passwordConfirm"
           placeholder="Confirm Password"
           type="password"
+          value={signupFormValues.passwordConfirm}
         />
       </Column>
       {errorMessage && (

@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { Button, Form, InputRegular, JustifyBetweenRow, Column, InputCheckbox } from '@/components'
 import { IUserLoginCredentials } from '@/models'
+import { InputWithIcon } from '../input'
+import { Camera, Key, User } from 'react-feather'
 
 interface Props {}
 const SigninComponent: React.FC<Props> = () => {
   const [credentials, setCredentials] = useState<IUserLoginCredentials>()
+  const [usernameError, setUsernameError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
 
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -17,8 +21,24 @@ const SigninComponent: React.FC<Props> = () => {
   return (
     <Form onSubmit={handleSignIn}>
       <Column>
-        <InputRegular onChange={handleInputChange} name="username" placeholder="Username" type="text" />
-        <InputRegular onChange={handleInputChange} name="password" placeholder="Password" type="password" />
+        <InputWithIcon
+          validationError={usernameError}
+          onChange={handleInputChange}
+          name="username"
+          placeholder="Username"
+          type="text"
+        >
+          <User />
+        </InputWithIcon>
+        <InputWithIcon
+          validationError={emailError}
+          onChange={handleInputChange}
+          name="password"
+          placeholder="Password"
+          type="password"
+        >
+          <Key />
+        </InputWithIcon>
       </Column>
       <JustifyBetweenRow>
         <InputCheckbox />

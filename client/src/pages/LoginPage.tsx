@@ -1,14 +1,28 @@
 import { Column, InnerWrapper, JustifyBetweenColumn, PageWrapper, SigninComponent, SignupComponent } from '@/components'
 import colors from '@/constants/colors'
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const rotate = keyframes`
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+`
 
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: ${colors.green.primary};
+  background: ${colors.green.primary};
+  background: linear-gradient(-45deg, ${colors.green.primary} 0%, ${colors.yellow.primary} 100%);
+  background-size: 150% 150%;
+  animation: ${rotate} 10s ease-in-out infinite;
 `
-
 const Container = styled.div`
   height: 100%;
   width: 100%;

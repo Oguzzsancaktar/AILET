@@ -8,18 +8,13 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
-    "@types/react-redux": "^7.1.24",
-    "@types/react-router-dom": "^5.3.3",
     "axios": "^0.26.1",
     "craco-alias": "^3.0.1",
     "craco-less": "^2.0.0",
     "feather-icons": "^4.28.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-feather": "^2.0.9",
     "react-markdown": "^8.0.2",
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.2.2",
@@ -54,6 +49,12 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-redux": "^7.1.24",
+    "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.24"
   }
 }
