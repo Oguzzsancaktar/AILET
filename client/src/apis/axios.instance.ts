@@ -1,8 +1,8 @@
-import { toastError, toastWarning } from "@/utils/toastUtil";
-import axios, { AxiosError } from "axios";
+import { toastError, toastWarning } from '@/utils/toastUtil'
+import axios, { AxiosError } from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: 'http://localhost:5000'
 })
 
 axiosInstance.interceptors.response.use(
@@ -11,7 +11,7 @@ axiosInstance.interceptors.response.use(
   },
   (err: AxiosError<any>) => {
     const res = err.response
-    const msg = res?.data?.error
+    const msg = res?.data?.error || res?.data?.errors[0]
     const status = res?.status ? res.status : 0
 
     if (status > 399 && status < 500) toastWarning(msg)

@@ -9,11 +9,9 @@ const Span = styled.span`
 
 const InputCheckbox = () => {
   const [isChecked, setIsChecked] = useState(false)
-
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked)
   }
-
   return (
     <Label>
       <Checkbox isChecked={isChecked} onChange={handleCheckboxChange} />

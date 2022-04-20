@@ -1,10 +1,13 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { Form, InputRegular, Button, Row } from '@/components'
 import { Column } from '../layout'
 import useAccessStore from '@/hooks/useAccessStore'
 import { IUserCreateDTO } from '@/models'
 import { createUser } from '@/services/userService'
 import { FormErrorMessage } from '../form'
+import { isEmailValid, isPasswordAndConfirmMatch, isPasswordValid, isUsernameValid } from '@/utils/validationUtils'
+import { InputWithIcon } from '../input'
+import { Key, Mail, User } from 'react-feather'
 
 type IProps = {}
 
@@ -19,11 +22,6 @@ const SignupComponent: React.FC<IProps> = () => {
   const [passwordError, setPasswordError] = useState(false)
   const [confirmPasswordError, setConfirmPasswordError] = useState(false)
 
-  const isFormOk = useMemo(
-    () => !usernameError && !emailError && !passwordError && !confirmPasswordError,
-    [usernameError, emailError, passwordError, confirmPasswordError]
-  )
-
   const [errorMessage, setErrorMessage] = useState('')
 
   const [signupFormValues, setSignupFormValues] = useState<ISignupFormValues>({
@@ -33,46 +31,48 @@ const SignupComponent: React.FC<IProps> = () => {
     passwordConfirm: '12341234'
   })
 
-  const handlePasswordConfirm = (values: ISignupFormValues) => {
+  const validateFormFields = (): boolean => {
+    const { username, email, password, passwordConfirm } = signupFormValues
     setUsernameError(false)
     setEmailError(false)
     setPasswordError(false)
     setConfirmPasswordError(false)
     setErrorMessage('')
 
-    if (values.username.trim().length < 6) {
+    if (!isUsernameValid(username)) {
       setErrorMessage('Username must be at least 6 characters long')
-      return setUsernameError(true)
+      setUsernameError(true)
+      return false
     }
-    if (
-      !values.email
-        .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )
-    ) {
+    if (!isEmailValid(email)) {
       setErrorMessage('Please enter a valid email')
-      return setEmailError(true)
+      setEmailError(true)
+      return false
     }
 
-    if (values.password.trim().length < 6) {
+    if (!isPasswordValid(password)) {
       setErrorMessage('Password must be at least 6 characters long')
-      return setPasswordError(true)
+      setPasswordError(true)
+      return false
     }
 
-    if (values.password.trim() !== values.passwordConfirm.trim()) {
+    if (!isPasswordAndConfirmMatch(password, passwordConfirm)) {
       setErrorMessage('Password and Confirm Password must be same')
       setPasswordError(true)
-      return setConfirmPasswordError(true)
+      setConfirmPasswordError(true)
+      return false
     }
+
+    return true
   }
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    handlePasswordConfirm(signupFormValues)
+    const validationResult = validateFormFields()
     try {
-      if (isFormOk) {
-        await createUser(signupFormValues)
+      if (validationResult) {
+        const result = await createUser(signupFormValues)
+        console.log(result)
       } else {
         console.log('enter valid signupFormValues', signupFormValues)
       }
@@ -88,45 +88,55 @@ const SignupComponent: React.FC<IProps> = () => {
   return (
     <Form onSubmit={handleSignUp}>
       <Column>
-        <InputRegular
+        <InputWithIcon
           validationError={usernameError}
+          onBlur={validateFormFields}
           onChange={handleInputChange}
           name="username"
           placeholder="Username"
           type="text"
           value={signupFormValues.username}
-        />
-        <InputRegular
+        >
+          <User />
+        </InputWithIcon>
+        <InputWithIcon
           validationError={emailError}
+          onBlur={validateFormFields}
           onChange={handleInputChange}
           name="email"
           placeholder="E-mail"
           type="email"
           value={signupFormValues.email}
-        />
+        >
+          <Mail />
+        </InputWithIcon>
 
-        <InputRegular
+        <InputWithIcon
           validationError={passwordError}
+          onBlur={validateFormFields}
           onChange={handleInputChange}
           name="password"
           placeholder="Password"
           type="password"
           value={signupFormValues.password}
-        />
-        <InputRegular
+        >
+          <Key />
+        </InputWithIcon>
+        <InputWithIcon
           validationError={confirmPasswordError}
           onChange={handleInputChange}
+          onBlur={validateFormFields}
           name="passwordConfirm"
           placeholder="Confirm Password"
           type="password"
           value={signupFormValues.passwordConfirm}
-        />
-      </Column>
-      {errorMessage && (
+        >
+          <Key />
+        </InputWithIcon>
         <Row>
           <FormErrorMessage message={errorMessage} />
         </Row>
-      )}
+      </Column>
       <Row>
         <Button>Sign Up</Button>
       </Row>

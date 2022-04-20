@@ -43,6 +43,7 @@ const Container = styled.div`
 const ChangeLoginType = styled.div``
 const ChangeLoginTypeText = styled.span``
 const ChangeLoginTypeButton = styled.button`
+  cursor: pointer;
   background-color: transparent;
   border: none;
   color: ${colors.yellow.primary};

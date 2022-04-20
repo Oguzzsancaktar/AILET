@@ -8,8 +8,9 @@ interface IProps {
 
 const Message = styled.p`
   color: ${colors.red.primary};
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
+  height: 22px;
 `
 
 const FormErrorMessage: React.FC<IProps> = ({ message }) => {
