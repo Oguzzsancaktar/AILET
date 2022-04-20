@@ -79,12 +79,16 @@
 - @types/supertest
 - ts-node
 
-## TO DO
+## TODO
 
 - Authentication System
 - DB connection With API
 - API Client connection
 - Page and Components design
+- Styled theme
+- Global style
+- use note >
+  > can add note its better
 
 ## How To
 
