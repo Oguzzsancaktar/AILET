@@ -9,7 +9,6 @@ const AppRouter = () => {
     loggedUser: { accessToken }
   } = useAuth()
 
-  console.log('accessToken', accessToken)
   const fetchPreAppRunData = useCallback(async () => {
     try {
       axios.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -22,7 +21,7 @@ const AppRouter = () => {
       console.log(error)
     } finally {
     }
-  }, [])
+  }, [accessToken])
 
   useEffect(() => {
     fetchPreAppRunData()

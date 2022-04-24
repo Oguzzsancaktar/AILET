@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
-import { Form, InputRegular, Button, Row } from '@/components'
+import React, { useEffect, useState } from 'react'
+import { Form, Button, Row } from '@/components'
 import { Column } from '../layout'
-import useAccessStore from '@/hooks/useAccessStore'
 import { IUserCreateDTO } from '@/models'
 import { FormErrorMessage } from '../form'
 import { isEmailValid, isPasswordAndConfirmMatch, isPasswordValid, isUsernameValid } from '@/utils/validationUtils'
 import { InputWithIcon } from '../input'
 import { Key, Mail, User } from 'react-feather'
+import { useCreateUserMutation } from '@/services/userService'
+import { useAuth } from '@/hooks/useAuth'
+import { useToggle } from '@/hooks/useToggle'
 
 type IProps = {}
 
 type ISignupFormValues = IUserCreateDTO & { passwordConfirm: string }
 
 const SignupComponent: React.FC<IProps> = () => {
-  const { useAppDispatch } = useAccessStore()
-  const dispatch = useAppDispatch()
+  const [isPasswordVisible, togglePasswordVisibility] = useToggle(false)
+  const [isPasswordConfirmVisible, togglePasswordConfirmVisibility] = useToggle(false)
+
+  const [createUser, { error: signupError, isSuccess: isSignupSuccess }] = useCreateUserMutation()
+
+  const {
+    tryLogin: { login }
+  } = useAuth()
 
   const [usernameError, setUsernameError] = useState(false)
   const [emailError, setEmailError] = useState(false)
@@ -29,6 +37,17 @@ const SignupComponent: React.FC<IProps> = () => {
     password: '12341234',
     passwordConfirm: '12341234'
   })
+
+  useEffect(() => {
+    if (signupError) {
+      setEmailError(true)
+      setErrorMessage((signupError as any)?.data?.message)
+    }
+  }, [signupError])
+
+  useEffect(() => {
+    isSignupSuccess && login({ email: signupFormValues.email, password: signupFormValues.password })
+  }, [isSignupSuccess, signupFormValues, login])
 
   const validateFormFields = (): boolean => {
     const { username, email, password, passwordConfirm } = signupFormValues
@@ -70,6 +89,7 @@ const SignupComponent: React.FC<IProps> = () => {
     const validationResult = validateFormFields()
     try {
       if (validationResult) {
+        createUser(signupFormValues)
       } else {
         console.log('enter valid signupFormValues', signupFormValues)
       }
@@ -114,8 +134,10 @@ const SignupComponent: React.FC<IProps> = () => {
           onChange={handleInputChange}
           name="password"
           placeholder="Password"
-          type="password"
           value={signupFormValues.password}
+          handleVisibility={togglePasswordVisibility}
+          isPasswordVisible={isPasswordVisible}
+          type={isPasswordVisible ? 'text' : 'password'}
         >
           <Key />
         </InputWithIcon>
@@ -125,8 +147,10 @@ const SignupComponent: React.FC<IProps> = () => {
           onBlur={validateFormFields}
           name="passwordConfirm"
           placeholder="Confirm Password"
-          type="password"
           value={signupFormValues.passwordConfirm}
+          handleVisibility={togglePasswordConfirmVisibility}
+          isPasswordVisible={isPasswordConfirmVisible}
+          type={isPasswordConfirmVisible ? 'text' : 'password'}
         >
           <Key />
         </InputWithIcon>

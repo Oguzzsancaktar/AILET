@@ -4,16 +4,15 @@ import { IUserLoginCredentials } from '@/models'
 import { InputWithIcon } from '../input'
 import { Key, User } from 'react-feather'
 import { isEmailValid, isPasswordValid } from '@/utils/validationUtils'
-import useAccessStore from '@/hooks/useAccessStore'
 import { useAuth } from '@/hooks/useAuth'
+import { useToggle } from '@/hooks/useToggle'
 
 interface Props {}
 const SigninComponent: React.FC<Props> = () => {
-  const { useAppDispatch } = useAccessStore()
-  const dispatch = useAppDispatch()
+  const [isPasswordVisible, togglePasswordVisibility] = useToggle(false)
 
   const {
-    tryLogin: { login, isLoginRejected, isLoginSuccessful }
+    tryLogin: { login }
   } = useAuth()
 
   const [emailError, setEmailError] = useState(false)
@@ -79,8 +78,10 @@ const SigninComponent: React.FC<Props> = () => {
           onChange={handleInputChange}
           name="password"
           placeholder="Password"
-          type="password"
           value={credentials.password}
+          handleVisibility={togglePasswordVisibility}
+          isPasswordVisible={isPasswordVisible}
+          type={isPasswordVisible ? 'text' : 'password'}
         >
           <Key />
         </InputWithIcon>

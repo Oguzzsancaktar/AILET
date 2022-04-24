@@ -81,12 +81,13 @@
 
 ## TODO
 
-> - Authentication System
-> - DB connection With API
-> - API Client connection
-> - Page and Components design
-> - Styled theme
-> - Global style
+> - Authentication System ✅
+> - DB connection With API ✅
+> - API Client connection ✅
+> - Page and Components design ✅
+> - Global style ✅
+
+- Styled theme
 
 ## How To
 
@@ -100,12 +101,6 @@
 
 - The validRefreshNeeded() function also verifies if the refresh token is correct for a specific user ID. If it is, then below we’ll reuse authController.createJWT to generate a new JWT for the user.
 - We also have validJWTNeeded(), which validates whether the API consumer sent a valid JWT in the HTTP headers respecting the convention Authorization: Bearer <token>. (Yes, that’s another unfortunate “auth” conflation.)
-
-### Redux
-
-- CreateSlice extra reducer => extraReducers are meant to reference "external" actions, they will not have actions generated in slice.actions.
-  > Usage of builder callback notation (extra reducers)
-- This overload accepts a callback function that receives a builder object as its argument. That builder provides addCase, addMatcher and addDefaultCase functions that may be called to define what actions this reducer will handle.
 
 ## Learning Notes
 
@@ -139,3 +134,13 @@
 
 - It is simple validation
 - Firstly we need to middleware, this middlaware takes the request and creates error array when you call the middleware you will see the error or trigger callback (next() )
+
+### Redux
+
+- CreateSlice extra reducer => extraReducers are meant to reference "external" actions, they will not have actions generated in slice.actions.
+  > Usage of builder callback notation (extra reducers)
+- This overload accepts a callback function that receives a builder object as its argument. That builder provides addCase, addMatcher and addDefaultCase functions that may be called to define what actions this reducer will handle.
+
+### RTK Query
+
+-

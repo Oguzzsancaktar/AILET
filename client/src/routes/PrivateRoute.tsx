@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 
 export const PrivateRoute = ({ children }: RouteProps) => {
   const {
-    loggedUser: { accessToken, user, isLoading, isError }
+    loggedUser: { accessToken, user }
   } = useAuth()
 
   useEffect(() => {

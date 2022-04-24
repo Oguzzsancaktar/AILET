@@ -1,8 +1,6 @@
 import { InnerWrapper, JustifyBetweenColumn, PageWrapper, SigninComponent, SignupComponent } from '@/components'
 import colors from '@/constants/colors'
-import useAccessStore from '@/hooks/useAccessStore'
 import { useAuth } from '@/hooks/useAuth'
-import { selectUser } from '@/store'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
@@ -55,7 +53,7 @@ const ChangeLoginTypeButton = styled.button`
 
 const LoginPage: React.FC = () => {
   const {
-    loggedUser: { accessToken, user }
+    loggedUser: { accessToken, user, isLoading }
   } = useAuth()
 
   const navigate = useNavigate()
@@ -66,10 +64,10 @@ const LoginPage: React.FC = () => {
   }
 
   useEffect(() => {
-    if (accessToken && user) {
+    if (accessToken && user && !isLoading) {
       navigate('/')
     }
-  }, [accessToken, user, navigate])
+  }, [accessToken, user, isLoading, navigate])
 
   return (
     <PageWrapper>
