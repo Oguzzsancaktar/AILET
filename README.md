@@ -9,6 +9,8 @@
 - Antd (deleted)
 - Craco (Webpack configuration)
 - Styled Components
+- Redux
+- Redux Toolkit
 
 ## Backend
 
@@ -77,12 +79,15 @@
 - @types/supertest
 - ts-node
 
-## TO DO
+## TODO
 
-- Authentication System
-- DB connection With API
-- API Client connection
-- Page and Components design
+> - Authentication System ✅
+> - DB connection With API ✅
+> - API Client connection ✅
+> - Page and Components design ✅
+> - Global style ✅
+
+- Styled theme
 
 ## How To
 
@@ -109,6 +114,7 @@
 
 - Bitwise AND (&)
 - conver decimals to binary and look for same column convert new binary item to decimal
+- Nullish coalescing operator (??)
 
 ### Diffrence of Interfaces and Types
 
@@ -128,3 +134,13 @@
 
 - It is simple validation
 - Firstly we need to middleware, this middlaware takes the request and creates error array when you call the middleware you will see the error or trigger callback (next() )
+
+### Redux
+
+- CreateSlice extra reducer => extraReducers are meant to reference "external" actions, they will not have actions generated in slice.actions.
+  > Usage of builder callback notation (extra reducers)
+- This overload accepts a callback function that receives a builder object as its argument. That builder provides addCase, addMatcher and addDefaultCase functions that may be called to define what actions this reducer will handle.
+
+### RTK Query
+
+-

@@ -1,14 +1,30 @@
-import { Column, InnerWrapper, JustifyBetweenColumn, PageWrapper, SigninComponent, SignupComponent } from '@/components'
+import { InnerWrapper, JustifyBetweenColumn, PageWrapper, SigninComponent, SignupComponent } from '@/components'
 import colors from '@/constants/colors'
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import { useAuth } from '@/hooks/useAuth'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import styled, { keyframes } from 'styled-components'
+
+const rotate = keyframes`
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+`
 
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: ${colors.green.primary};
+  background: ${colors.green.primary};
+  background: linear-gradient(-45deg, ${colors.green.primary} 0%, ${colors.yellow.primary} 100%);
+  background-size: 150% 150%;
+  animation: ${rotate} 10s ease-in-out infinite;
 `
-
 const Container = styled.div`
   height: 100%;
   width: 100%;
@@ -29,21 +45,34 @@ const Container = styled.div`
 const ChangeLoginType = styled.div``
 const ChangeLoginTypeText = styled.span``
 const ChangeLoginTypeButton = styled.button`
+  cursor: pointer;
   background-color: transparent;
   border: none;
   color: ${colors.yellow.primary};
 `
 
 const LoginPage: React.FC = () => {
+  const {
+    loggedUser: { accessToken, user, isLoading }
+  } = useAuth()
+
+  const navigate = useNavigate()
   const [isSignup, setIsSignup] = useState(false)
 
   const handleClick = () => {
     setIsSignup(!isSignup)
   }
 
+  useEffect(() => {
+    if (accessToken && user && !isLoading) {
+      navigate('/')
+    }
+  }, [accessToken, user, isLoading, navigate])
+
   return (
     <PageWrapper>
       <Wrapper>
+        <Link to={'/'}>Home</Link>
         <Container>
           <InnerWrapper>
             <JustifyBetweenColumn>

@@ -1,12 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
+import store from '@/store/store'
+import 'react-toastify/dist/ReactToastify.css'
 import './styles/index.css'
+import AppRoute from './routes/AppRouter'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <AppRoute />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )

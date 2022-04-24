@@ -5,6 +5,9 @@
       "@/*": [
         "src/*"
       ],
+      "@api/*": [
+        "src/api/*"
+      ],
       "@assets/*": [
         "src/assets/*"
       ],
@@ -34,6 +37,9 @@
       ],
       "@services/*": [
         "src/services/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
       ],
       "@store/*": [
         "src/store/*"
