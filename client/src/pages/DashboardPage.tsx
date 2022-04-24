@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import useAccessStore from '@/hooks/useAccessStore'
+import { useAuth } from '@/hooks/useAuth'
+import React from 'react'
 
 const DashboardPage: React.FC = () => {
-  const [user, setUser] = useState(null)
-  const navigate = useNavigate()
-  useEffect(() => {
-    !user && navigate('/login')
-  }, [user])
-  return <div>DashboardPage</div>
+  const { loggedUser, logout } = useAuth()
+  const handleLogout = () => {
+    logout()
+  }
+  return (
+    <div>
+      {loggedUser.user?.email}
+      <button onClick={handleLogout}>Logout</button>
+    </div>
+  )
 }
 
 export default DashboardPage

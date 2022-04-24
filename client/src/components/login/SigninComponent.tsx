@@ -1,26 +1,26 @@
 import React, { useState } from 'react'
 import { Button, Form, JustifyBetweenRow, Column, Row, FormErrorMessage } from '@/components'
-import { IUserSigninCredentials } from '@/models'
+import { IUserLoginCredentials } from '@/models'
 import { InputWithIcon } from '../input'
 import { Key, User } from 'react-feather'
 import { isEmailValid, isPasswordValid } from '@/utils/validationUtils'
-import { signin } from '@/services/authService'
-import { useNavigate } from 'react-router-dom'
 import useAccessStore from '@/hooks/useAccessStore'
-import { setUser } from '@/store'
-import jwtDecode from 'jwt-decode'
+import { useAuth } from '@/hooks/useAuth'
 
 interface Props {}
 const SigninComponent: React.FC<Props> = () => {
-  const navigate = useNavigate()
   const { useAppDispatch } = useAccessStore()
   const dispatch = useAppDispatch()
+
+  const {
+    tryLogin: { login, isLoginRejected, isLoginSuccessful }
+  } = useAuth()
 
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  const [credentials, setCredentials] = useState<IUserSigninCredentials>({
+  const [credentials, setCredentials] = useState<IUserLoginCredentials>({
     email: 'info@oguzsancaktar.com',
     password: '123456'
   })
@@ -48,15 +48,7 @@ const SigninComponent: React.FC<Props> = () => {
 
     try {
       if (validationResult) {
-        const response = await signin(credentials)
-        if (response.status === 201) {
-          console.log(response.data)
-          // console.log(jwt.decode(response.data.accessToken))
-          const buffer = await jwtDecode(response.data.accessToken)
-          console.log(buffer)
-          // dispatch(setUser())
-          // navigate('/')
-        }
+        login(credentials)
       }
     } catch (error: any) {
       setErrorMessage(error.data.errors[0])
@@ -64,7 +56,7 @@ const SigninComponent: React.FC<Props> = () => {
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCredentials({ ...credentials, [event.target.name]: event.target.value } as IUserSigninCredentials)
+    setCredentials({ ...credentials, [event.target.name]: event.target.value } as IUserLoginCredentials)
   }
 
   return (

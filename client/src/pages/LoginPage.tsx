@@ -1,6 +1,10 @@
-import { Column, InnerWrapper, JustifyBetweenColumn, PageWrapper, SigninComponent, SignupComponent } from '@/components'
+import { InnerWrapper, JustifyBetweenColumn, PageWrapper, SigninComponent, SignupComponent } from '@/components'
 import colors from '@/constants/colors'
-import React, { useState } from 'react'
+import useAccessStore from '@/hooks/useAccessStore'
+import { useAuth } from '@/hooks/useAuth'
+import { selectUser } from '@/store'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 
 const rotate = keyframes`
@@ -50,15 +54,27 @@ const ChangeLoginTypeButton = styled.button`
 `
 
 const LoginPage: React.FC = () => {
+  const {
+    loggedUser: { accessToken, user }
+  } = useAuth()
+
+  const navigate = useNavigate()
   const [isSignup, setIsSignup] = useState(false)
 
   const handleClick = () => {
     setIsSignup(!isSignup)
   }
 
+  useEffect(() => {
+    if (accessToken && user) {
+      navigate('/')
+    }
+  }, [accessToken, user, navigate])
+
   return (
     <PageWrapper>
       <Wrapper>
+        <Link to={'/'}>Home</Link>
         <Container>
           <InnerWrapper>
             <JustifyBetweenColumn>

@@ -3,7 +3,6 @@ import { Form, InputRegular, Button, Row } from '@/components'
 import { Column } from '../layout'
 import useAccessStore from '@/hooks/useAccessStore'
 import { IUserCreateDTO } from '@/models'
-import { createUser } from '@/services/userService'
 import { FormErrorMessage } from '../form'
 import { isEmailValid, isPasswordAndConfirmMatch, isPasswordValid, isUsernameValid } from '@/utils/validationUtils'
 import { InputWithIcon } from '../input'
@@ -71,8 +70,6 @@ const SignupComponent: React.FC<IProps> = () => {
     const validationResult = validateFormFields()
     try {
       if (validationResult) {
-        const result = await createUser(signupFormValues)
-        console.log(result)
       } else {
         console.log('enter valid signupFormValues', signupFormValues)
       }
