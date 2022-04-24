@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsc && node --unhandled-rejections=strict ./dist/app.js",
     "debug": "export DEBUG=* && npm run start",
+    "dev": "npx nodemon ./app.ts",
     "test": "mocha -r ts-node/register 'test/**/*.test.ts' --unhandled-rejections=strict",
     "test-debug": "export DEBUG=* && npm test"
   },
