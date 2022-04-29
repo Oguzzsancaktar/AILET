@@ -144,3 +144,7 @@
 ### RTK Query
 
 -
+
+## Mobile Application (react-native)
+
+- One possibility is to use the AsyncStorage, the equivalent of the browser’s LocalStorage. AsyncStorage is not secure because it is not encrypted. Keeping sensitive data here is an awful idea. The react-native-keychain package uses the Keychain services to store data securely:
