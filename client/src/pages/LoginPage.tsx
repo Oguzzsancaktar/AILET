@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
 
   useEffect(() => {
     if (accessToken && user && !isLoading) {
-      navigate('/')
+      navigate('/profile')
     }
   }, [accessToken, user, isLoading, navigate])
 

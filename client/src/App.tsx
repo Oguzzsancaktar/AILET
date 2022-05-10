@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import { PrivateRoute } from '@/routes/PrivateRoute'
 import GlobalStyle from './styles/GlobalStyle'
 
+const ProfilePage = lazy(() => import('./pages/ProfilePage'))
 const DashboardPage = lazy(() => import('./pages/DashboardPage'))
 const LoginPage = lazy(() => import('./pages/LoginPage'))
 
@@ -17,11 +18,21 @@ function App() {
         <Route
           path="/"
           element={
-            <PrivateRoute path="/">
+            <PrivateRoute>
               <DashboardPage />
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        />
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/*" element={<Navigate replace to="/" />} />
       </Routes>

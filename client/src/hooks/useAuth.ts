@@ -25,13 +25,13 @@ export const useAuth = () => {
     skip: !userId
   })
 
-  const [login, { isError: isLoginRejected, isSuccess: isLoginSuccessful }] = useLoginMutation()
+  const [login, { isError: isLoginRejected, isSuccess: isLoginSuccessfull }] = useLoginMutation()
 
   useEffect(() => {
-    if (isLoginSuccessful) {
+    if (isLoginSuccessfull) {
       window.location.href = '/'
     }
-  }, [isLoginSuccessful])
+  }, [isLoginSuccessfull])
 
   const logout = () => {
     localStorage.clear()
@@ -50,7 +50,7 @@ export const useAuth = () => {
       }),
       [accessToken, userData, isLoadingLoggedUser, isError, error]
     ),
-    tryLogin: { login, isLoginRejected, isLoginSuccessful },
+    tryLogin: { login, isLoginRejected, isLoginSuccessfull },
     logout
   }
 }
